@@ -1,0 +1,41 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: mysql-db
+    restart: always
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --skip-character-set-client-handshake
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: mydb
+      LANG: C.UTF-8
+    volumes:
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  web:
+    build: ./app
+    container_name: flask-web
+    restart: always
+    environment:
+      DB_HOST: db
+      DB_USER: root
+      DB_PASS: rootpassword
+      DB_NAME: mydb
+      PYTHONIOENCODING: utf-8
+      LANG: C.UTF-8
+      LC_ALL: C.UTF-8
+    ports:
+      - "5000:5000"
+    depends_on:
+      db:
+        condition: service_healthy
+
