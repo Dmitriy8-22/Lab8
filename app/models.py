@@ -1,14 +1,13 @@
 import os
 import mysql.connector
-from mysql.connector.constants import ClientFlag
 
 class ItemModel:
     def __init__(self):
         self.config = {
-            'host': os.getenv('DB_HOST', 'localhost'),
-            'user': os.getenv('DB_USER', 'root'),
-            'password': os.getenv('DB_PASS', 'rootpassword'),
-            'database': os.getenv('DB_NAME', 'mydb'),
+            'host': os.getenv('DB_HOST', ''),
+            'user': os.getenv('DB_USER', ''),
+            'password': os.getenv('DB_PASS', ''),
+            'database': os.getenv('DB_NAME', ''),
             'charset': 'utf8mb4',
             'use_unicode': True,
             'collation': 'utf8mb4_unicode_ci'
