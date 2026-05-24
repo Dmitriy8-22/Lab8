@@ -148,4 +148,4 @@ curl http://localhost:5000
 </body>
 </html>
 ```
-![http://localhost:5000](/home/vboxuser/Pictures/1.png)
+![http://localhost:5000](./1.png)
