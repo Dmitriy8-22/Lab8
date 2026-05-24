@@ -4,7 +4,8 @@
 
 ## Часть I. Docker
 
-```docker build -t flask-app .
+```
+docker build -t flask-app .
 
 [+] Building 50.7s (10/10) FINISHED                              docker:default
  => [internal] load build definition from Dockerfile                       0.1s
@@ -38,7 +39,8 @@
  => => unpacking to docker.io/library/flask-app:latest                     0.6s
 ```
 
-```docker run -d --name flask-container -p 5000:5000 flask-app
+```
+docker run -d --name flask-container -p 5000:5000 flask-app
 66a3b6d64e07580d9f1b912535e47e8bdd0b8dd253e6d3dea63a62dd55e88479
 
 docker ps
@@ -46,12 +48,14 @@ CONTAINER ID   IMAGE       COMMAND           CREATED          STATUS          PO
 66a3b6d64e07   flask-app   "python app.py"   11 seconds ago   Up 11 seconds   0.0.0.0:5000->5000/tcp, [::]:5000->5000/tcp   flask-container
 ```
 
-```echo "# Flask Docker App" > README.md
+```
+echo "# Flask Docker App" > README.md
 
 docker cp README.md flask-container:/home/README.md
 Successfully copied 19B (transferred 2.05kB) to flask-container:/home/README.md
 ```
-```docker exec -it flask-container /bin/bash
+```
+docker exec -it flask-container /bin/bash
 root@66a3b6d64e07:/app# ls -la /home
 total 12
 drwxr-xr-x 1 root root 4096 May 23 18:32 .
@@ -60,14 +64,16 @@ drwxr-xr-x 1 root root 4096 May 23 18:32 ..
 root@66a3b6d64e07:/app# cat /home/README.md
 # Flask Docker App
 ```
-```root@66a3b6d64e07:/app# exit
+```
+root@66a3b6d64e07:/app# exit
 exit
 
 docker stop flask-container
 flask-container
 ```
 ## Часть II. Docker compose
-```docker compose up -d
+```
+docker compose up -d
  
 [+] up 12/14
  ⠸ Image mysql:8.0 [⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿] 246.5MB / 248.2MB Pulling               19.4s
@@ -102,14 +108,16 @@ flask-container
  ✔ Container flask-web  Started                                            31.0s
 ```
 
-```docker compose ps
+```
+docker compose ps
 
 NAME        IMAGE       COMMAND                  SERVICE   CREATED         STATUS                   PORTS
 flask-web   lab8-web    "python app.py"          web       2 minutes ago   Up About a minute        0.0.0.0:5000->5000/tcp, [::]:5000->5000/tcp
 mysql-db    mysql:8.0   "docker-entrypoint.s…"   db        2 minutes ago   Up 2 minutes (healthy)   0.0.0.0:3306->3306/tcp, [::]:3306->3306/tcp, 33060/tcp
 ```
 
-```docker compose logs web
+```
+docker compose logs web
 
 flask-web  |  * Serving Flask app 'app'
 flask-web  |  * Debug mode: off
@@ -120,7 +128,8 @@ flask-web  |  * Running on http://172.18.0.3:5000
 flask-web  | Press CTRL+C to quit
 ```
 
-```curl http://localhost:5000
+```
+curl http://localhost:5000
 
 <!DOCTYPE html>
 <html>
@@ -139,4 +148,4 @@ flask-web  | Press CTRL+C to quit
 </body>
 </html>
 ```
-!(/home/vboxuser/Pictures/1.png)
+![http://localhost:5000](/home/vboxuser/Pictures/1.png)
